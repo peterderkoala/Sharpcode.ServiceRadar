@@ -10,11 +10,11 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILogger<LoginController> logger;
-        private readonly OrganisationController organisationController;
+        private readonly OrganisationDataController organisationController;
 
         public LoginController(
             ILogger<LoginController> logger,
-            OrganisationController organisationController)
+            OrganisationDataController organisationController)
         {
             this.logger = logger;
             this.organisationController = organisationController;

@@ -3,14 +3,14 @@ using Sharpcode.ServiceRadar.Model.Entities;
 
 namespace Sharpcode.ServiceRadar.Api.Hubs
 {
-    public class BusinessIssueHub : Hub
+    public class BusinessIssueHub : Hub<IBusinessHubClient>
     {
         public async Task NewBusinessIssue(
             BusinessIssue businessIssue,
             CancellationToken cancellationToken = default)
         {
             await Clients.All
-                .SendAsync("NewBusinessIssue", businessIssue, cancellationToken);
+                .NewBusinessIssue(data: businessIssue, cancellationToken);
         }
 
         public async Task UpdateBusinessIssue(
@@ -18,7 +18,13 @@ namespace Sharpcode.ServiceRadar.Api.Hubs
             CancellationToken cancellationToken = default)
         {
             await Clients.All
-                .SendAsync("UpdateBusinessIssue", businessIssue, cancellationToken);
+                .UpdateBusinessIssue(update: businessIssue, cancellationToken);
+        }
+
+        public async Task SendPingTest(int value, CancellationToken cancellation)
+        {
+            await Clients.All
+                .PingTest(value, cancellation);
         }
     }
 }

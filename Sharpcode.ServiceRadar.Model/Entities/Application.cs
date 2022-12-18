@@ -6,9 +6,9 @@ namespace Sharpcode.ServiceRadar.Model.Entities
     {
         [Key]
         public int ApplicationId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Version { get; set; }
+        public string Title { get; set; } = null!;
+        public string Description { get; set; } = null!;
+        public string Version { get; set; } = null!;
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
         public DateTimeOffset DeletedAt { get; set; }

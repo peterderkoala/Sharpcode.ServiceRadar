@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Hosting;
 using NLog.Extensions.Logging;
-using Sharpcode.ServiceRadar.Core.Controllers;
+using Sharpcode.ServiceRadar.Core;
 using Sharpcode.ServiceRadar.Ui.Console;
 
 var host = Host.CreateDefaultBuilder()
@@ -16,11 +16,9 @@ var host = Host.CreateDefaultBuilder()
     })
     .ConfigureServices((context, service) =>
     {
-        // Adding Policy for constructor injection
-        //service.AddSingleton<ServicePolicy>();
-        //service.AddSingleton<ServiceCore>();
 
-        service.AddSingleton<IHubConnectionBuilder, BusinessHubConnectionBuilder>();
+        service.AddHubControllers();
+        service.AddClientRetryPolicies();
 
         service.AddHostedService<Worker>()
         .Configure<HostOptions>(options =>

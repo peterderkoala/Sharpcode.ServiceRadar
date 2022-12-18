@@ -4,12 +4,14 @@ using Sharpcode.ServiceRadar.Persistence;
 
 namespace Sharpcode.ServiceRadar.Core.Controllers
 {
-    public class OrganisationController
+    public class OrganisationDataController
     {
-        private readonly ILogger<OrganisationController> logger;
+        private readonly ILogger<OrganisationDataController> logger;
         private readonly BrokerDbContext brokerDbContext;
 
-        public OrganisationController(ILogger<OrganisationController> logger, BrokerDbContext brokerDbContext)
+        public OrganisationDataController(
+            ILogger<OrganisationDataController> logger,
+            BrokerDbContext brokerDbContext)
         {
             this.logger = logger;
             this.brokerDbContext = brokerDbContext;
