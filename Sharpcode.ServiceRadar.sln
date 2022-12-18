@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.Api", "Sharpcode.ServiceRadar.Api\Sharpcode.ServiceRadar.Api.csproj", "{9D9ECB10-863A-4327-AD9B-9DCF4E6D8670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.Ui.Console", "Sharpcode.ServiceRadar.Ui.Console\Sharpcode.ServiceRadar.Ui.Console.csproj", "{EF2C11B3-4B85-4778-9532-FE32608E26FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D9ECB10-863A-4327-AD9B-9DCF4E6D8670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D9ECB10-863A-4327-AD9B-9DCF4E6D8670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D9ECB10-863A-4327-AD9B-9DCF4E6D8670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D9ECB10-863A-4327-AD9B-9DCF4E6D8670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF2C11B3-4B85-4778-9532-FE32608E26FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF2C11B3-4B85-4778-9532-FE32608E26FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF2C11B3-4B85-4778-9532-FE32608E26FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF2C11B3-4B85-4778-9532-FE32608E26FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C35F3208-CA46-4437-8FAA-21BE18ADE36B}
+	EndGlobalSection
+EndGlobal
