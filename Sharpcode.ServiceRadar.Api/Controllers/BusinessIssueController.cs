@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Sharpcode.ServiceRadar.Api.Hubs;
 using Sharpcode.ServiceRadar.Core.Controllers;
 using Sharpcode.ServiceRadar.Model.Entities;
+using Sharpcode.ServiceRadar.Model.Interfaces;
 
 namespace Sharpcode.ServiceRadar.Api.Controllers
 {
@@ -12,12 +13,12 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
     public class BusinessIssueController : ControllerBase
     {
         private readonly ILogger<BusinessIssueController> _logger;
-        private readonly IHubContext<BusinessIssueHub, IBusinessHubClient> _hubContext;
+        private readonly IHubContext<MessageHub, IBusinessIssueHubServer> _hubContext;
         private readonly BusinessIssueDataController _businessIssueDataController;
 
         public BusinessIssueController(
             ILogger<BusinessIssueController> logger,
-            IHubContext<BusinessIssueHub, IBusinessHubClient> hubContext,
+            IHubContext<MessageHub, IBusinessIssueHubServer> hubContext,
             BusinessIssueDataController businessIssueDataController)
         {
             _logger = logger;
@@ -30,7 +31,7 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
         {
             try
             {
-                await _hubContext.Clients.All.PingTest(value, cancellationToken);
+                await _hubContext.Clients.All.PingTest(value);
                 return Ok(value);
             }
             catch (TaskCanceledException)
@@ -73,7 +74,7 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
             try
             {
                 var result = await _businessIssueDataController.CreateOrUpdateBusinessIssueAsync(data, cancellationToken);
-                await _hubContext.Clients.All.NewBusinessIssue(result, cancellationToken);
+                await _hubContext.Clients.All.NewBusinessIssue(result);
                 return Ok(result);
             }
             catch (TaskCanceledException)

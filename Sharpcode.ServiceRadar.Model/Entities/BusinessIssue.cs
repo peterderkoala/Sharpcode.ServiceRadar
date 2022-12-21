@@ -15,7 +15,9 @@ namespace Sharpcode.ServiceRadar.Model.Entities
         public DateTimeOffset? ClosedAt { get; set; }
         public TimeSpan ImpactDuration { get; set; }
 
-        public IEnumerable<Message> BusinessIssueMessages { get; set; } = new List<Message>();
+        public int OrganisationId { get; set; }
+        public Organisation Organisation { get; set; }
+        public IEnumerable<Message> Messages { get; set; } = new List<Message>();
         public IEnumerable<BusinessIssue2Application> BusinessApplications { get; set; } = new List<BusinessIssue2Application>();
         public int IssuerId { get; set; }
         public Issuer Issuer { get; set; } = null!;

@@ -8,5 +8,8 @@ namespace Sharpcode.ServiceRadar.Model.Entities
         public int OrganisationId { get; set; }
         public string Title { get; set; } = null!;
         public string? Desription { get; set; }
+
+        public IEnumerable<BusinessIssue> BusinessIssues { get; set; } = new List<BusinessIssue>();
+        public IEnumerable<RemoteClient> RemoteClients { get; set; } = new List<RemoteClient>();
     }
 }

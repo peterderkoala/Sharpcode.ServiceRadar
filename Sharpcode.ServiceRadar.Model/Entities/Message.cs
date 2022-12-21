@@ -12,5 +12,7 @@ namespace Sharpcode.ServiceRadar.Model.Entities
 
         public int BusinessIssueId { get; set; }
         public BusinessIssue BusinessIssue { get; set; } = null!;
+
+        // TODO: Issuer mit aufnehmen in die nachricht???
     }
 }

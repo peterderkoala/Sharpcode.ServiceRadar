@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sharpcode.ServiceRadar.Persistence;
 
@@ -11,9 +12,11 @@ using Sharpcode.ServiceRadar.Persistence;
 namespace Sharpcode.ServiceRadar.Persistence.Migrations
 {
     [DbContext(typeof(BrokerDbContext))]
-    partial class BrokerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221221210102_remote_client1")]
+    partial class remoteclient1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,18 +57,6 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                     b.HasKey("ApplicationId");
 
                     b.ToTable("Application", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            ApplicationId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
-                            DeletedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            Description = "Demo Application after initial migration",
-                            Title = "Demo Application",
-                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            Version = "0.0.1"
-                        });
                 });
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.BusinessIssue", b =>
@@ -79,6 +70,9 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BusinessIssueOrganisationOrganisationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("BusinessIssuePriority")
                         .HasColumnType("int");
@@ -98,34 +92,17 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                     b.Property<int>("IssuerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrganisationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("BusinessIssueId");
 
+                    b.HasIndex("BusinessIssueOrganisationOrganisationId");
+
                     b.HasIndex("IssuerId");
 
-                    b.HasIndex("OrganisationId");
-
                     b.ToTable("BusinessIssue", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            BusinessIssueId = 1,
-                            Body = "This is a demo issue after initial migration",
-                            BusinessIssuePriority = 2,
-                            ImpactDuration = new TimeSpan(0, 1, 1, 1, 0),
-                            IssueType = 0,
-                            IssuedAt = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
-                            IssuerId = 1,
-                            OrganisationId = 1,
-                            Title = "Demo issue"
-                        });
                 });
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.BusinessIssue2Application", b =>
@@ -149,14 +126,6 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                     b.HasIndex("BusinessIssueId");
 
                     b.ToTable("BusinessIssue2Application");
-
-                    b.HasData(
-                        new
-                        {
-                            BusinessIssue2ApplicationId = 1,
-                            BusinessApplicationId = 1,
-                            BusinessIssueId = 1
-                        });
                 });
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Issuer", b =>
@@ -184,15 +153,6 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                     b.HasKey("IssuerId");
 
                     b.ToTable("Issuer", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            IssuerId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
-                            IssuerMail = "demo@serviceradar.net",
-                            IssuerName = "Demo Issuer"
-                        });
                 });
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Message", b =>
@@ -222,16 +182,6 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                     b.HasIndex("BusinessIssueId");
 
                     b.ToTable("Message", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            MessageId = 1,
-                            BusinessIssueId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
-                            MessageBody = "First demo message.",
-                            Title = "Demo Message 1"
-                        });
                 });
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Organisation", b =>
@@ -290,21 +240,21 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.BusinessIssue", b =>
                 {
+                    b.HasOne("Sharpcode.ServiceRadar.Model.Entities.Organisation", "BusinessIssueOrganisation")
+                        .WithMany("BusinessIssues")
+                        .HasForeignKey("BusinessIssueOrganisationOrganisationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Sharpcode.ServiceRadar.Model.Entities.Issuer", "Issuer")
                         .WithMany()
                         .HasForeignKey("IssuerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sharpcode.ServiceRadar.Model.Entities.Organisation", "Organisation")
-                        .WithMany("BusinessIssues")
-                        .HasForeignKey("OrganisationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("BusinessIssueOrganisation");
 
                     b.Navigation("Issuer");
-
-                    b.Navigation("Organisation");
                 });
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.BusinessIssue2Application", b =>
@@ -329,7 +279,7 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Message", b =>
                 {
                     b.HasOne("Sharpcode.ServiceRadar.Model.Entities.BusinessIssue", "BusinessIssue")
-                        .WithMany("Messages")
+                        .WithMany("BusinessIssueMessages")
                         .HasForeignKey("BusinessIssueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -357,7 +307,7 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                 {
                     b.Navigation("BusinessApplications");
 
-                    b.Navigation("Messages");
+                    b.Navigation("BusinessIssueMessages");
                 });
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Organisation", b =>

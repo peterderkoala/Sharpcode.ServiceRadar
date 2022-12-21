@@ -42,7 +42,7 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHub<BusinessIssueHub>("/issuehub");
+    endpoints.MapHub<MessageHub>("/messageHub");
 });
 
 app.UseHttpsRedirection();
