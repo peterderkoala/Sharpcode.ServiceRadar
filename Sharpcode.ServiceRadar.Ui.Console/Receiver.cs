@@ -6,6 +6,15 @@ namespace Sharpcode.ServiceRadar.Ui.Console
 {
     internal class Receiver : IBusinessIssueHubServer
     {
+        public delegate void OrganisationEventHandler(object sender, Organisation e);
+        public event EventHandler<Organisation> OrganisationEvent;
+
+        public delegate void BusinessIssueEventHandler(object sender, List<BusinessIssue> e);
+        public event EventHandler<List<BusinessIssue>> BusinessIssueEvent;
+
+        public delegate void NewBusinessIssueEventHandler(object sender, BusinessIssue e);
+        public event EventHandler<BusinessIssue> NewBusinessIssueEvent;
+
         private readonly ILogger<Receiver> _logger;
 
         public Receiver(ILogger<Receiver> logger)
@@ -18,9 +27,12 @@ namespace Sharpcode.ServiceRadar.Ui.Console
             throw new NotImplementedException();
         }
 
-        public Task NewBusinessIssue(BusinessIssue data)
+        public async Task NewBusinessIssue(BusinessIssue data)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation(
+                "Issue: {issue} \r\n{obj}",
+                data.Title,
+                data);
         }
 
         public async Task PingTest(int value)
@@ -28,9 +40,9 @@ namespace Sharpcode.ServiceRadar.Ui.Console
             _logger.LogInformation("PingTest: {Value}", value);
         }
 
-        public Task RespondError(string message)
+        public async Task RespondError(string message)
         {
-            throw new NotImplementedException();
+            _logger.LogError(message);
         }
 
         public Task RespondIssueMessage(List<Message> data)
@@ -38,19 +50,34 @@ namespace Sharpcode.ServiceRadar.Ui.Console
             throw new NotImplementedException();
         }
 
-        public Task RespondOrganisation(Organisation organisation)
+        public async Task RespondOrganisation(Organisation organisation)
         {
-            throw new NotImplementedException();
+            await OnOrganisationEvent(organisation);
         }
 
-        public Task RespondPendingBusinessIssues(List<BusinessIssue> data)
+        public async Task RespondPendingBusinessIssues(List<BusinessIssue> data)
         {
-            throw new NotImplementedException();
+            await OnBusinessIssueEvent(data);
         }
 
-        public Task UpdateBusinessIssue(BusinessIssue update)
+        public async Task UpdateBusinessIssue(BusinessIssue update)
         {
-            throw new NotImplementedException();
+            await OnNewBusinessIssueEvent(update);
+        }
+
+        protected virtual async Task OnOrganisationEvent(Organisation organisation)
+        {
+            OrganisationEvent.Invoke(this, organisation);
+        }
+
+        protected virtual async Task OnBusinessIssueEvent(List<BusinessIssue> issues)
+        {
+            BusinessIssueEvent.Invoke(this, issues);
+        }
+
+        protected virtual async Task OnNewBusinessIssueEvent(BusinessIssue issue)
+        {
+            NewBusinessIssueEvent.Invoke(this, issue);
         }
     }
 }

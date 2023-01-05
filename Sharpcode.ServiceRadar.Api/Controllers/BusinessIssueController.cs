@@ -8,7 +8,7 @@ using Sharpcode.ServiceRadar.Model.Interfaces;
 
 namespace Sharpcode.ServiceRadar.Api.Controllers
 {
-    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class BusinessIssueController : ControllerBase
     {
@@ -42,6 +42,44 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
             {
                 _logger.LogError(ex, "{method} - Error while sending ping value: {value}", nameof(SendPingTest), value);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while sending ping value");
+            }
+        }
+
+        [HttpGet("OpenRandomIssue")]
+        public async Task<IActionResult> OpenRandomIssue(CancellationToken cancellationToken = default)
+        {
+            BusinessIssue businessIssue = new BusinessIssue()
+            {
+                Title = Guid.NewGuid().ToString(),
+                Body = "Random generated Body: " + Guid.NewGuid().ToString(),
+                BusinessApplications = new List<BusinessIssue2Application>()
+                {
+                    new BusinessIssue2Application()
+                    {
+                        BusinessApplicationId = 1
+                    }
+                },
+                IssuedAt = DateTime.Now,
+                ImpactDuration = TimeSpan.FromMinutes(99),
+                IssuerId = 1,
+                OrganisationId = 1,
+                BusinessIssuePriority = BusinessIssue.IssuePriorities.Medium,
+                IssueType = BusinessIssue.IssueTypes.Maintenance
+            };
+
+            try
+            {
+                var result = await _businessIssueDataController.CreateOrUpdateBusinessIssueAsync(businessIssue, cancellationToken);
+                await _hubContext.Clients.All.NewBusinessIssue(result);
+                return Ok(result);
+            }
+            catch (TaskCanceledException)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while creating BusinessIssue");
             }
         }
 

@@ -19,7 +19,8 @@ namespace Sharpcode.ServiceRadar.Ui.Console
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _test.Start(stoppingToken);
+            await _test.Auth(stoppingToken);
+            //await _test.Start(stoppingToken);
         }
     }
 }

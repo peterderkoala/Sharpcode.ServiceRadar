@@ -17,6 +17,7 @@ var host = Host.CreateDefaultBuilder()
     .ConfigureServices((context, service) =>
     {
         service.AddTransient<Receiver>();
+        service.AddTransient<AuthReceiver>();
         service.AddTransient<Test>();
         service.AddHubControllers();
         service.AddClientRetryPolicies();

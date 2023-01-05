@@ -38,6 +38,7 @@ namespace Sharpcode.ServiceRadar.Api.Hubs
                 }
                 else
                 {
+                    _logger.LogInformation("{caller} answering Org: [{org}]", nameof(GetOrganisation), organisation.Title);
                     await Clients.Client(clientid).RespondOrganisation(organisation);
                 }
 
@@ -61,8 +62,8 @@ namespace Sharpcode.ServiceRadar.Api.Hubs
             var issueController = scope.ServiceProvider.GetRequiredService<BusinessIssueDataController>();
 
             var pendingIssues = await issueController.GetBusinessIssues()
-                .Include(x => x.Organisation.OrganisationId == myOrganisation.OrganisationId)
-                .Where(x => x.ClosedAt == null)
+                .Include(x => x.Organisation)
+                .Where(x => x.ClosedAt == null && x.Organisation.OrganisationId == myOrganisation.OrganisationId)
                 .ToListAsync();
 
             await Clients.Client(clientid)

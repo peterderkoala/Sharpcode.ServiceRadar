@@ -7,17 +7,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Api"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Ui.Console", "Sharpcode.ServiceRadar.Ui.Console\Sharpcode.ServiceRadar.Ui.Console.csproj", "{EF2C11B3-4B85-4778-9532-FE32608E26FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.Core", "Sharpcode.ServiceRadar.Core\Sharpcode.ServiceRadar.Core.csproj", "{B47B05CC-D471-42B4-942E-4E018A3A2D4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Core", "Sharpcode.ServiceRadar.Core\Sharpcode.ServiceRadar.Core.csproj", "{B47B05CC-D471-42B4-942E-4E018A3A2D4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.Ui.MAUI", "Sharpcode.ServiceRadar.Ui.MAUI\Sharpcode.ServiceRadar.Ui.MAUI.csproj", "{0A88E2CB-B96C-428A-AC73-78283ADC5D9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Ui.MAUI", "Sharpcode.ServiceRadar.Ui.MAUI\Sharpcode.ServiceRadar.Ui.MAUI.csproj", "{0A88E2CB-B96C-428A-AC73-78283ADC5D9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.Ui.Blazor", "Sharpcode.ServiceRadar.Ui.Blazor\Sharpcode.ServiceRadar.Ui.Blazor.csproj", "{C2CD1FD6-7C94-4939-B797-3BFE52656DC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Ui.Blazor", "Sharpcode.ServiceRadar.Ui.Blazor\Sharpcode.ServiceRadar.Ui.Blazor.csproj", "{C2CD1FD6-7C94-4939-B797-3BFE52656DC6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{B9A38C2C-E560-4C79-BDF4-6649063C59F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.Persistence", "Sharpcode.ServiceRadar.Persistence\Sharpcode.ServiceRadar.Persistence.csproj", "{C75A548D-D175-41A5-B1BE-20B376A9D4B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Persistence", "Sharpcode.ServiceRadar.Persistence\Sharpcode.ServiceRadar.Persistence.csproj", "{C75A548D-D175-41A5-B1BE-20B376A9D4B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.Model", "Sharpcode.ServiceRadar.Model\Sharpcode.ServiceRadar.Model.csproj", "{07DB2217-7D5D-4D84-84C8-BD39851527EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Model", "Sharpcode.ServiceRadar.Model\Sharpcode.ServiceRadar.Model.csproj", "{07DB2217-7D5D-4D84-84C8-BD39851527EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{721F98CE-E2B8-48A0-9437-5B83F745E1BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,6 +62,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{9D9ECB10-863A-4327-AD9B-9DCF4E6D8670} = {721F98CE-E2B8-48A0-9437-5B83F745E1BB}
 		{EF2C11B3-4B85-4778-9532-FE32608E26FB} = {B9A38C2C-E560-4C79-BDF4-6649063C59F4}
 		{0A88E2CB-B96C-428A-AC73-78283ADC5D9E} = {B9A38C2C-E560-4C79-BDF4-6649063C59F4}
 		{C2CD1FD6-7C94-4939-B797-3BFE52656DC6} = {B9A38C2C-E560-4C79-BDF4-6649063C59F4}

@@ -14,6 +14,7 @@ namespace Sharpcode.ServiceRadar.Core
             services.AddTransient<IssuerDataController>();
             services.AddTransient<MessageDataController>();
             services.AddTransient<OrganisationDataController>();
+            services.AddTransient<RemoteClientDataController>();
 
             return services;
         }

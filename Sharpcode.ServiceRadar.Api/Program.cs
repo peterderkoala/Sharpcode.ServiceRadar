@@ -1,6 +1,7 @@
 using Sharpcode.ServiceRadar.Api.Hubs;
 using Sharpcode.ServiceRadar.Core;
 using Sharpcode.ServiceRadar.Persistence;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSignalR();
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+}).AddJsonProtocol(options =>
+{
+    options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+    options.PayloadSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.PayloadSerializerOptions.MaxDepth = 0;
+});
 
 var app = builder.Build();
 
@@ -43,6 +52,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapHub<MessageHub>("/messageHub");
+    endpoints.MapHub<AuthHub>("/authHub");
 });
 
 app.UseHttpsRedirection();
