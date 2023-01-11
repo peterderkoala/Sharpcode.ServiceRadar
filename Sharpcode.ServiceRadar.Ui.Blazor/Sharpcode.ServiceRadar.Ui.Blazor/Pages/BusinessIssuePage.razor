@@ -1,0 +1,37 @@
+﻿@page "/business-issues"
+@implements IDisposable
+
+@using System.Threading
+@using ServiceRadar.Core
+@using ServiceRadar.Core.Controllers
+@using ServiceRadar.Model.Entities
+
+@inject BusinessIssueDataController _businessIssueDataController
+
+<Row>
+    <Heading>Issues</Heading>
+</Row>
+
+@code {
+    private List<BusinessIssue> _openIssues = new();
+    private CancellationTokenSource cancellationToken = new CancellationTokenSource();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadData();
+        }
+    }
+
+    private async Task LoadData()
+    {
+        _openIssues = await _businessIssueDataController.GetBusinessIssuesAsync(cancellationToken.Token);
+    }
+
+    public void Dispose()
+    {
+        cancellationToken?.Cancel();
+        cancellationToken?.Dispose();
+    }
+}

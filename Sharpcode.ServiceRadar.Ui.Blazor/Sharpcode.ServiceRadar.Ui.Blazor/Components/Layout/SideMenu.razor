@@ -28,6 +28,17 @@
                     </BarDropdownMenu>
                 </BarDropdown>
             </BarItem>
+            <BarItem>
+                <BarDropdown @bind-Visible="pagesBarVisible">
+                    <BarDropdownToggle>
+                        <BarIcon IconName="IconName.Edit" />
+                        Issues
+                    </BarDropdownToggle>
+                    <BarDropdownMenu>
+                        <BarDropdownItem To="/business-issues">Issues</BarDropdownItem>
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
         </BarStart>
         <BarEnd>
             <BarItem>
