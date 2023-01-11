@@ -6,8 +6,8 @@ namespace Sharpcode.ServiceRadar.Ui.Console
 {
     internal class Receiver : IBusinessIssueHubServer
     {
-        public delegate void OrganisationEventHandler(object sender, Organisation e);
-        public event EventHandler<Organisation> OrganisationEvent;
+        public delegate void OrganisationEventHandler(object sender, Organization e);
+        public event EventHandler<Organization> OrganisationEvent;
 
         public delegate void BusinessIssueEventHandler(object sender, List<BusinessIssue> e);
         public event EventHandler<List<BusinessIssue>> BusinessIssueEvent;
@@ -22,7 +22,7 @@ namespace Sharpcode.ServiceRadar.Ui.Console
             _logger = logger;
         }
 
-        public Task GetPendingBusinessIssues(string clientid, Organisation myOrganisation)
+        public Task GetPendingBusinessIssues(string clientid, Organization myOrganisation)
         {
             throw new NotImplementedException();
         }
@@ -50,7 +50,7 @@ namespace Sharpcode.ServiceRadar.Ui.Console
             throw new NotImplementedException();
         }
 
-        public async Task RespondOrganisation(Organisation organisation)
+        public async Task RespondOrganisation(Organization organisation)
         {
             await OnOrganisationEvent(organisation);
         }
@@ -65,7 +65,7 @@ namespace Sharpcode.ServiceRadar.Ui.Console
             await OnNewBusinessIssueEvent(update);
         }
 
-        protected virtual async Task OnOrganisationEvent(Organisation organisation)
+        protected virtual async Task OnOrganisationEvent(Organization organisation)
         {
             OrganisationEvent.Invoke(this, organisation);
         }

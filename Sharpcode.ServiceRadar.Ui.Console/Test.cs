@@ -12,7 +12,7 @@ namespace Sharpcode.ServiceRadar.Ui.Console
     {
         private readonly ILogger<Test> _logger;
         private readonly IServiceProvider _service;
-        private Organisation _organisation;
+        private Organization _organisation;
 
         public Test(ILogger<Test> logger, IServiceProvider service)
         {
@@ -110,7 +110,7 @@ namespace Sharpcode.ServiceRadar.Ui.Console
             }
         }
 
-        private void Rev_OrganisationEvent(object? sender, Organisation e)
+        private void Rev_OrganisationEvent(object? sender, Organization e)
         {
             _logger.LogInformation("Organisation: [{org}]", e.Title);
             _organisation = e;

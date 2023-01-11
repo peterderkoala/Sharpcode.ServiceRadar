@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Sharpcode.ServiceRadar.Core.Controllers;
 using Sharpcode.ServiceRadar.Core.Policies;
 
@@ -13,16 +12,9 @@ namespace Sharpcode.ServiceRadar.Core
             services.AddTransient<BusinessIssueDataController>();
             services.AddTransient<IssuerDataController>();
             services.AddTransient<MessageDataController>();
-            services.AddTransient<OrganisationDataController>();
+            services.AddTransient<OrganizationDataController>();
             services.AddTransient<RemoteClientDataController>();
 
-            return services;
-        }
-
-        public static IServiceCollection AddHubControllers(this IServiceCollection services)
-        {
-            services.AddSingleton<IHubConnectionBuilder, BusinessHubConnectionBuilder>();
-            services.AddTransient<BusinessIssueHubController>();
             return services;
         }
 

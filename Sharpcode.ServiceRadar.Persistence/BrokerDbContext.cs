@@ -26,7 +26,7 @@ namespace Sharpcode.ServiceRadar.Persistence
         public DbSet<BusinessIssue> BusinessIssues => Set<BusinessIssue>();
         public DbSet<Message> Messages => Set<Message>();
         public DbSet<Issuer> Issuers => Set<Issuer>();
-        public DbSet<Organisation> Organizations => Set<Organisation>();
+        public DbSet<Organization> Organizations => Set<Organization>();
         public DbSet<RemoteClient> RemoteClients => Set<RemoteClient>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,7 +50,7 @@ namespace Sharpcode.ServiceRadar.Persistence
             modelBuilder.Entity<Issuer>()
                 .ToTable("Issuer");
 
-            modelBuilder.Entity<Organisation>()
+            modelBuilder.Entity<Organization>()
                 .ToTable("Organisation");
 
             modelBuilder.Entity<RemoteClient>()
@@ -58,11 +58,11 @@ namespace Sharpcode.ServiceRadar.Persistence
 
 
             #region demo data
-            modelBuilder.Entity<Organisation>()
+            modelBuilder.Entity<Organization>()
                 .HasData(
-                new Organisation
+                new Organization
                 {
-                    OrganisationId = 1,
+                    OrganizationId = 1,
                     Title = "Default",
                     Desription = "Default organisation after initial migration"
                 });

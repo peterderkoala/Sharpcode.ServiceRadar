@@ -10,11 +10,11 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
     public class LoginController : ControllerBase
     {
         private readonly ILogger<LoginController> logger;
-        private readonly OrganisationDataController organisationController;
+        private readonly OrganizationDataController organisationController;
 
         public LoginController(
             ILogger<LoginController> logger,
-            OrganisationDataController organisationController)
+            OrganizationDataController organisationController)
         {
             this.logger = logger;
             this.organisationController = organisationController;
@@ -24,7 +24,7 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
         public async Task<IActionResult> GetOrganisationAsync(int id)
         {
             logger.LogInformation("Requesting Organisation with ID: {id}", id);
-            var org = await organisationController.GetOrganisations().FirstOrDefaultAsync(x => x.OrganisationId == id);
+            var org = await organisationController.GetOrganizations().FirstOrDefaultAsync(x => x.OrganizationId == id);
 
             if (org is null)
             {
@@ -33,7 +33,7 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
             }
 
             logger.LogInformation("Returning Organisation with ID: {id}, Organisation: {org}", id, org);
-            return Ok(new Organisation());
+            return Ok(new Organization());
         }
     }
 }

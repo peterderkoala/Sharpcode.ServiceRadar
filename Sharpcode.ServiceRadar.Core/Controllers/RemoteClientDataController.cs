@@ -19,10 +19,8 @@ namespace Sharpcode.ServiceRadar.Core.Controllers
         }
 
         public async Task<bool> CheckClientExisting(string clientMail, CancellationToken cancellationToken = default)
-        {
-            return await _brokerDbContext.RemoteClients
+            => await _brokerDbContext.RemoteClients
                 .AnyAsync(_ => _.Mail.ToLower() == clientMail.ToLower(), cancellationToken);
-        }
 
         public async Task CreateClient(string clientMail, CancellationToken cancellationToken = default)
         {
@@ -30,23 +28,31 @@ namespace Sharpcode.ServiceRadar.Core.Controllers
                              nameof(CreateClient),
                              clientMail);
 
-            using var transaction = await _brokerDbContext.Database.BeginTransactionAsync(cancellationToken);
             try
             {
-                RemoteClient rc = new()
+                using var transaction = await _brokerDbContext.Database.BeginTransactionAsync(cancellationToken);
+                try
                 {
-                    Mail = clientMail,
-                    RemoteClientKey = Guid.NewGuid().ToString(),
-                    OrganisationId = 1 // TODO: Hier sollte die passende organisation ermittelt werden.
-                };
-                _brokerDbContext.Update(rc);
-                await _brokerDbContext.SaveChangesAsync(cancellationToken);
+                    RemoteClient rc = new()
+                    {
+                        Mail = clientMail,
+                        RemoteClientKey = Guid.NewGuid().ToString(),
+                        OrganisationId = 1 // TODO: Hier sollte die passende organisation ermittelt werden.
+                    };
+                    _brokerDbContext.Update(rc);
+                    await _brokerDbContext.SaveChangesAsync(cancellationToken);
 
-                _logger.LogDebug("{caller} - created remoteclient mail: {mail} with id: {id}",
-                                 nameof(CreateClient),
-                                 clientMail,
-                                 rc.RemoteClientId);
-                await transaction.CommitAsync(cancellationToken);
+                    _logger.LogDebug("{caller} - created remoteclient mail: {mail} with id: {id}",
+                                     nameof(CreateClient),
+                                     clientMail,
+                                     rc.RemoteClientId);
+                    await transaction.CommitAsync(cancellationToken);
+                }
+                catch (Exception)
+                {
+                    await transaction.RollbackAsync(cancellationToken);
+                    throw;
+                }
             }
             catch (Exception ex)
             {
@@ -54,8 +60,6 @@ namespace Sharpcode.ServiceRadar.Core.Controllers
                                  "{caller} - Error while creating client, rolling back! mail: {mail}",
                                  nameof(CreateClient),
                                  clientMail);
-
-                await transaction.RollbackAsync(cancellationToken);
                 throw;
             }
         }

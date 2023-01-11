@@ -12,11 +12,12 @@ namespace Sharpcode.ServiceRadar.Model.Entities
         public IssueTypes IssueType { get; set; }
         public IssuePriorities BusinessIssuePriority { get; set; }
         public DateTimeOffset IssuedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
         public DateTimeOffset? ClosedAt { get; set; }
         public TimeSpan ImpactDuration { get; set; }
 
         public int OrganisationId { get; set; }
-        public Organisation Organisation { get; set; }
+        public Organization Organisation { get; set; }
         public IEnumerable<Message> Messages { get; set; } = new List<Message>();
         public IEnumerable<BusinessIssue2Application> BusinessApplications { get; set; } = new List<BusinessIssue2Application>();
         public int IssuerId { get; set; }

@@ -9,6 +9,7 @@ namespace Sharpcode.ServiceRadar.Model.Entities
         public string IssuerName { get; set; } = null!;
         public string IssuerMail { get; set; } = null!;
         public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset UpdatedAt { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
 
         ICollection<BusinessIssue> Issues { get; set; } = new List<BusinessIssue>();

@@ -11,7 +11,7 @@ namespace Sharpcode.ServiceRadar.Model.Entities
         public string Version { get; set; } = null!;
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
-        public DateTimeOffset DeletedAt { get; set; }
+        public DateTimeOffset? DeletedAt { get; set; }
 
         public IEnumerable<BusinessIssue2Application> BusinessIssues { get; set; } = new List<BusinessIssue2Application>();
     }

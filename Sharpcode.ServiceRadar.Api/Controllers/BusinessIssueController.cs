@@ -69,7 +69,7 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
 
             try
             {
-                var result = await _businessIssueDataController.CreateOrUpdateBusinessIssueAsync(businessIssue, cancellationToken);
+                var result = await _businessIssueDataController.CreateBusinessIssueAsync(businessIssue, cancellationToken);
                 await _hubContext.Clients.All.NewBusinessIssue(result);
                 return Ok(result);
             }
@@ -111,7 +111,7 @@ namespace Sharpcode.ServiceRadar.Api.Controllers
         {
             try
             {
-                var result = await _businessIssueDataController.CreateOrUpdateBusinessIssueAsync(data, cancellationToken);
+                var result = await _businessIssueDataController.CreateBusinessIssueAsync(data, cancellationToken);
                 await _hubContext.Clients.All.NewBusinessIssue(result);
                 return Ok(result);
             }

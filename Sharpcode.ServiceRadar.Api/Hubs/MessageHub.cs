@@ -21,13 +21,13 @@ namespace Sharpcode.ServiceRadar.Api.Hubs
             try
             {
                 using var scope = _serviceProvider.CreateAsyncScope();
-                var organisationController = scope.ServiceProvider.GetRequiredService<OrganisationDataController>();
+                var organisationController = scope.ServiceProvider.GetRequiredService<OrganizationDataController>();
                 var remoteClientController = scope.ServiceProvider.GetRequiredService<RemoteClientDataController>();
 
                 if (!await remoteClientController.CheckClientExisting(mail))
                     await remoteClientController.CreateClient(mail);
 
-                var organisation = await organisationController.GetOrganisations()
+                var organisation = await organisationController.GetOrganizations()
                     .Include(x => x.RemoteClients.Where(x => x.Mail.ToLower() == mail))
                     .FirstOrDefaultAsync();
 
@@ -56,14 +56,14 @@ namespace Sharpcode.ServiceRadar.Api.Hubs
             }
         }
 
-        public async Task GetPendingIssues(string clientid, Organisation myOrganisation)
+        public async Task GetPendingIssues(string clientid, Organization myOrganisation)
         {
             using var scope = _serviceProvider.CreateAsyncScope();
             var issueController = scope.ServiceProvider.GetRequiredService<BusinessIssueDataController>();
 
             var pendingIssues = await issueController.GetBusinessIssues()
                 .Include(x => x.Organisation)
-                .Where(x => x.ClosedAt == null && x.Organisation.OrganisationId == myOrganisation.OrganisationId)
+                .Where(x => x.ClosedAt == null && x.Organisation.OrganizationId == myOrganisation.OrganizationId)
                 .ToListAsync();
 
             await Clients.Client(clientid)

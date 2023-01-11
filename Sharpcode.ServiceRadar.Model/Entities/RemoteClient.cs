@@ -10,6 +10,6 @@ namespace Sharpcode.ServiceRadar.Model.Entities
         public string Mail { get; set; }
 
         public int OrganisationId { get; set; }
-        public Organisation Organisation { get; set; }
+        public Organization Organisation { get; set; }
     }
 }

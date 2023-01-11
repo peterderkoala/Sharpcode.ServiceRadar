@@ -17,7 +17,7 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -33,7 +33,7 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTimeOffset>("DeletedAt")
+                    b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
@@ -60,7 +60,6 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                         {
                             ApplicationId = 1,
                             CreatedAt = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
-                            DeletedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Demo Application after initial migration",
                             Title = "Demo Application",
                             UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -105,6 +104,9 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.HasKey("BusinessIssueId");
 
                     b.HasIndex("IssuerId");
@@ -124,7 +126,8 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                             IssuedAt = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
                             IssuerId = 1,
                             OrganisationId = 1,
-                            Title = "Demo issue"
+                            Title = "Demo issue",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -181,6 +184,9 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.HasKey("IssuerId");
 
                     b.ToTable("Issuer", (string)null);
@@ -191,7 +197,8 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                             IssuerId = 1,
                             CreatedAt = new DateTimeOffset(new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 1, 0, 0, 0)),
                             IssuerMail = "demo@serviceradar.net",
-                            IssuerName = "Demo Issuer"
+                            IssuerName = "Demo Issuer",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -234,13 +241,19 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Organisation", b =>
+            modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Organization", b =>
                 {
-                    b.Property<int>("OrganisationId")
+                    b.Property<int>("OrganizationId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganisationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganizationId"));
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Desription")
                         .HasColumnType("nvarchar(max)");
@@ -249,16 +262,21 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrganisationId");
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("OrganizationId");
 
                     b.ToTable("Organisation", (string)null);
 
                     b.HasData(
                         new
                         {
-                            OrganisationId = 1,
+                            OrganizationId = 1,
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Desription = "Default organisation after initial migration",
-                            Title = "Default"
+                            Title = "Default",
+                            UpdatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -296,7 +314,7 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sharpcode.ServiceRadar.Model.Entities.Organisation", "Organisation")
+                    b.HasOne("Sharpcode.ServiceRadar.Model.Entities.Organization", "Organisation")
                         .WithMany("BusinessIssues")
                         .HasForeignKey("OrganisationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,7 +357,7 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
 
             modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.RemoteClient", b =>
                 {
-                    b.HasOne("Sharpcode.ServiceRadar.Model.Entities.Organisation", "Organisation")
+                    b.HasOne("Sharpcode.ServiceRadar.Model.Entities.Organization", "Organisation")
                         .WithMany("RemoteClients")
                         .HasForeignKey("OrganisationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -360,7 +378,7 @@ namespace Sharpcode.ServiceRadar.Persistence.Migrations
                     b.Navigation("Messages");
                 });
 
-            modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Organisation", b =>
+            modelBuilder.Entity("Sharpcode.ServiceRadar.Model.Entities.Organization", b =>
                 {
                     b.Navigation("BusinessIssues");
 

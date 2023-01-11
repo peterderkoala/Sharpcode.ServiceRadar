@@ -7,9 +7,9 @@ namespace Sharpcode.ServiceRadar.Model.Interfaces
         Task NewBusinessIssue(BusinessIssue data);
         Task UpdateBusinessIssue(BusinessIssue update);
         Task PingTest(int value);
-        Task GetPendingBusinessIssues(string clientid, Organisation myOrganisation);
+        Task GetPendingBusinessIssues(string clientid, Organization myOrganisation);
         Task RespondPendingBusinessIssues(List<BusinessIssue> data);
-        Task RespondOrganisation(Organisation organisation);
+        Task RespondOrganisation(Organization organisation);
         Task RespondIssueMessage(List<Message> data);
         Task RespondError(string message);
 
