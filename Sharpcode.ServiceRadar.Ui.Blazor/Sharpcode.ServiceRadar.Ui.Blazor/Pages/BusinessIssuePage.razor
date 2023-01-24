@@ -8,11 +8,56 @@
 
 @inject BusinessIssueDataController _businessIssueDataController
 
+<style>
+    main div.table-responsive.table-fixed-header {
+        height: calc(100vh - 165px) !important;
+        max-height: calc(100vh - 165px) !important;
+    }
+</style>
+
+
 <Row>
     <Heading>Issues</Heading>
 </Row>
 
+@if (_loading)
+{
+    <Image Source="spinner.svg" Style="height: 25%;width: 25%;align-items: center;justify-content: center"/>
+}
+else
+{
+    <DataGrid TItem="BusinessIssue"
+              Data="_openIssues"
+              Responsive
+              FixedHeader
+              DetailRowStartsVisible=false>
+        <DataGridColumns>
+            <DataGridColumn TItem="BusinessIssue" Field="BusinessIssueId" Caption="#" />
+            <DataGridColumn TItem="BusinessIssue" Field="Title" Caption="Titel" />
+            <DataGridColumn TItem="BusinessIssue" Field="ImpactDuration" Caption="Dauer" />
+            <DataGridColumn TItem="BusinessIssue" Field="IssueType" Caption="Type" />
+            <DataGridColumn TItem="BusinessIssue" Field="BusinessIssuePriority" Caption="Prio" />
+            <DataGridColumn TItem="BusinessIssue" Field="IssuedAt" Caption="Erzeugt" />
+            <DataGridColumn Sortable="false">
+                <DisplayTemplate>
+                    <Button Color="Color.Primary">Nachrichten</Button>
+                    <Button Color="Color.Warning">Bearbeiten</Button>
+                    <Button Color="Color.Danger">Schließen</Button>
+                </DisplayTemplate>
+            </DataGridColumn>
+        </DataGridColumns>
+        <DetailRowTemplate>
+            @{
+                var bodyText = (context as BusinessIssue).Body;
+                <Text>@bodyText</text>
+            }
+        </DetailRowTemplate>
+    </DataGrid>
+}
+
+
 @code {
+    private bool _loading = true;
     private List<BusinessIssue> _openIssues = new();
     private CancellationTokenSource cancellationToken = new CancellationTokenSource();
 
@@ -27,6 +72,8 @@
     private async Task LoadData()
     {
         _openIssues = await _businessIssueDataController.GetBusinessIssuesAsync(cancellationToken.Token);
+        _loading = false;
+        StateHasChanged();
     }
 
     public void Dispose()
