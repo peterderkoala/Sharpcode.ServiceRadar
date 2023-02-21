@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Mode
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{721F98CE-E2B8-48A0-9437-5B83F745E1BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.Ui.Blazor", "Sharpcode.ServiceRadar.Ui.Blazor\Sharpcode.ServiceRadar.Ui.Blazor\Sharpcode.ServiceRadar.Ui.Blazor.csproj", "{6453ED18-D8DB-4B71-BD24-E55328F58D64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Ui.Blazor", "Sharpcode.ServiceRadar.Ui.Blazor\Sharpcode.ServiceRadar.Ui.Blazor\Sharpcode.ServiceRadar.Ui.Blazor.csproj", "{6453ED18-D8DB-4B71-BD24-E55328F58D64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

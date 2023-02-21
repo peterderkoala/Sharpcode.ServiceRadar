@@ -7,10 +7,13 @@
             <p>Sorry, there's nothing at this address.</p>
         </NotFound>
     </Router>
+    <ModalProvider />
     <MessageProvider />
-    <NotificationProvider />
+    @*<NotificationProvider />*@
     <PageProgressProvider />
 </Blazorise.ThemeProvider>
+
+
 @code {
     private Theme theme = new()
         {

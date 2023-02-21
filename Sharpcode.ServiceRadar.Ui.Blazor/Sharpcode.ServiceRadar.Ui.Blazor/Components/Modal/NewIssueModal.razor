@@ -1,0 +1,111 @@
+﻿@using Sharpcode.ServiceRadar.Core.Controllers;
+@using Sharpcode.ServiceRadar.Model.Entities;
+@inject ApplicationDataController _adc;
+@inject OrganizationDataController _odc;
+
+<ModalBody>
+    <Field Horizontal>
+        <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Titel</FieldLabel>
+        <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
+            <TextEdit @bind-Text="_tmpIssue.Title"></TextEdit>
+        </FieldBody>
+    </Field>
+    <Field Horizontal>
+        <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Beschreibung</FieldLabel>
+        <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
+            <MemoEdit @bind-Text="_tmpIssue.Body"></MemoEdit>
+        </FieldBody>
+    </Field>
+    <Field Horizontal ColumnSize="ColumnSize.IsFull">
+        <FieldLabel>
+            Priorität
+        </FieldLabel>
+        <Select @bind-SelectedValue="_tmpIssue.BusinessIssuePriority"
+                TValue="BusinessIssue.IssuePriorities">
+            @foreach (BusinessIssue.IssuePriorities item in Enum.GetValues(typeof(BusinessIssue.IssuePriorities)))
+            {
+                <SelectItem Value="@item">
+                    @(item.ToString())
+                </SelectItem>
+            }
+        </Select>
+    </Field>
+    <Field Horizontal ColumnSize="ColumnSize.IsFull">
+        <FieldLabel>
+            Typ
+        </FieldLabel>
+        <Select @bind-SelectedValue="_tmpIssue.IssueType"
+                TValue="BusinessIssue.IssueTypes">
+            @foreach (BusinessIssue.IssueTypes item in Enum.GetValues(typeof(BusinessIssue.IssueTypes)))
+            {
+                <SelectItem Value="@item">
+                    @(item.ToString())
+                </SelectItem>
+            }
+        </Select>
+    </Field>
+    <Field Horizontal ColumnSize="ColumnSize.IsFull">
+        <FieldLabel>
+            Applikation(en)
+        </FieldLabel>
+        <FieldBody>
+            Multiselect für Application + button für neue app anlegen?
+        </FieldBody>
+    </Field>
+    <Field Horizontal ColumnSize="ColumnSize.IsFull">
+        <FieldLabel>
+            Organisation(en)
+        </FieldLabel>
+        <FieldBody>
+            Multiselect für Application + button für neue app anlegen?
+        </FieldBody>
+    </Field>
+</ModalBody>
+<ModalFooter>
+    <Button Color="Color.Success" Clicked="Confirm">Cheers!</Button>
+</ModalFooter>
+
+@code {
+    [Inject]
+    public IModalService ModalService { get; set; }
+
+    [Parameter]
+    public BusinessIssue Issue { get; set; } = null!;
+
+    [Parameter]
+    public CancellationToken CancellationToken { get; set; } = default;
+
+    private BusinessIssue _tmpIssue = new();
+    private List<BusinessApplication> _businessApplications = new();
+    private List<Organization> _organizations = new();
+
+    private int? _selectedApplicationId = null;
+    private int? _selectedOrganizationId = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await LoadDataAsync(CancellationToken);
+    }
+
+    private async Task LoadDataAsync(CancellationToken cancellationToken = default)
+    {
+        _businessApplications = await _adc.GetBusinessApplicationsAsync(cancellationToken);
+        _organizations = await _odc.GetOrganizationsAsync(cancellationToken);
+
+        if (Issue != null)
+        {
+            _tmpIssue.Title = Issue.Title;
+            _tmpIssue.Body = Issue.Body;
+            _tmpIssue.BusinessIssuePriority = Issue.BusinessIssuePriority;
+            _tmpIssue.IssueType = Issue.IssueType;
+            _tmpIssue.Organisation = Issue.Organisation;
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task Confirm()
+    {
+        await ModalService.Hide();
+    }
+}
