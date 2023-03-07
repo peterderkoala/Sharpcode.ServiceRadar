@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.DataEncryption.Migration;
 using Sharpcode.ServiceRadar.Api.Hubs;
 using Sharpcode.ServiceRadar.Core;
 using Sharpcode.ServiceRadar.Persistence;
@@ -36,6 +37,13 @@ builder.Services.AddSignalR(options =>
 });
 
 var app = builder.Build();
+
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<BrokerDbContext>();
+    await db.MigrateAsync();
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

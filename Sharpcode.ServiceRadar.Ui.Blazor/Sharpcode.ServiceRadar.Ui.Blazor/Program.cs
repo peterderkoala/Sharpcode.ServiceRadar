@@ -1,6 +1,7 @@
 using Blazorise;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
+using Microsoft.EntityFrameworkCore.DataEncryption.Migration;
 using Sharpcode.ServiceRadar.Core;
 using Sharpcode.ServiceRadar.Persistence;
 
@@ -16,6 +17,12 @@ builder.Services.AddBrokerDbContext();
 AddBlazorise(builder.Services);
 
 var app = builder.Build();
+
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<BrokerDbContext>();
+    await db.MigrateAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
