@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{721F98CE-E2B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpcode.ServiceRadar.Ui.Blazor", "Sharpcode.ServiceRadar.Ui.Blazor\Sharpcode.ServiceRadar.Ui.Blazor\Sharpcode.ServiceRadar.Ui.Blazor.csproj", "{6453ED18-D8DB-4B71-BD24-E55328F58D64}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{D65AB06D-573E-4ADA-A0EF-9A033EE81EAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpcode.ServiceRadar.HubClient", "Sharpcode.ServiceRadar.HubClient\Sharpcode.ServiceRadar.HubClient.csproj", "{60AC4EA1-7BE8-45AF-8773-920C62DDCA3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,10 @@ Global
 		{6453ED18-D8DB-4B71-BD24-E55328F58D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6453ED18-D8DB-4B71-BD24-E55328F58D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6453ED18-D8DB-4B71-BD24-E55328F58D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60AC4EA1-7BE8-45AF-8773-920C62DDCA3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60AC4EA1-7BE8-45AF-8773-920C62DDCA3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60AC4EA1-7BE8-45AF-8773-920C62DDCA3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60AC4EA1-7BE8-45AF-8773-920C62DDCA3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +74,7 @@ Global
 		{EF2C11B3-4B85-4778-9532-FE32608E26FB} = {B9A38C2C-E560-4C79-BDF4-6649063C59F4}
 		{0A88E2CB-B96C-428A-AC73-78283ADC5D9E} = {B9A38C2C-E560-4C79-BDF4-6649063C59F4}
 		{6453ED18-D8DB-4B71-BD24-E55328F58D64} = {B9A38C2C-E560-4C79-BDF4-6649063C59F4}
+		{60AC4EA1-7BE8-45AF-8773-920C62DDCA3C} = {D65AB06D-573E-4ADA-A0EF-9A033EE81EAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C35F3208-CA46-4437-8FAA-21BE18ADE36B}

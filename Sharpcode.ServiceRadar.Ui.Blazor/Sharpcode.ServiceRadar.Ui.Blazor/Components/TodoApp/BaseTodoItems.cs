@@ -1,9 +1,5 @@
 ﻿using Blazorise;
 using Microsoft.AspNetCore.Components;
-using Sharpcode.ServiceRadar.Ui.Blazor.Components.TodoApp;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sharpcode.ServiceRadar.Ui.Blazor.Components.TodoApp
 {

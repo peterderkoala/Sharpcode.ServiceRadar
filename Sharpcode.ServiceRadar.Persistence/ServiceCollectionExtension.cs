@@ -13,7 +13,7 @@ namespace Sharpcode.ServiceRadar.Persistence
                 {
                     options.UseSqlServer(
                         sp.GetRequiredService<IConfiguration>()
-                            .GetConnectionString("Default"));                    
+                            .GetConnectionString("Default"));
                 },
                 ServiceLifetime.Transient);
 
